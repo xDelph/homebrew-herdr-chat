@@ -47,7 +47,15 @@ class HerdrChat < Formula
   service do
     run [opt_bin/"herdrchat"]
     keep_alive true
-    environment_variables HERDR_REMOTE_BIND: "127.0.0.1"
+    # ⚠️ **`PATH` n'est pas facultatif ici.**
+    # Sans lui, launchd démarre le service avec `/usr/bin:/bin` seulement. Le
+    # lanceur y cherche `bun`, ne le trouve pas, et sort en 1 : le service reste
+    # en « error » sans jamais écrire une ligne.
+    #
+    # Mesuré : la MÊME commande lancée à la main fonctionne (elle hérite du PATH
+    # de ton shell, où bun est dans nvm), et échoue avec un PATH minimal.
+    # `std_service_path_env` est le PATH standard de Homebrew pour les services.
+    environment_variables HERDR_REMOTE_BIND: "127.0.0.1", PATH: std_service_path_env
   end
 
   def caveats
