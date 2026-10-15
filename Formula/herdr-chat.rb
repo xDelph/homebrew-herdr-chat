@@ -10,11 +10,25 @@ class HerdrChat < Formula
   depends_on "bun"
 
   def install
+    # ⚠️ **Les dépendances ne sont PAS dans l'archive.**
+    # Le tarball livre les sources et la PWA déjà construite, pas `node_modules` :
+    # sans cette étape, `bun` ne trouve même pas le paquet de workspace
+    # `@herdr-remote/shared`, et le service meurt au démarrage sur
+    # « Cannot find module ». Mesuré, pas supposé.
+    #
+    # ⚠️ On installe ICI, sur la machine de l'utilisateur, et pas dans la release :
+    # les binaires natifs doivent correspondre à SON architecture. La release est
+    # construite sur Linux, l'utilisateur est sur macOS.
+    system "bun", "install", "--frozen-lockfile", "--production"
+
     # ⚠️ **Tout à la racine du préfixe, jamais dans `libexec`.**
     # Le lanceur remonte d'un cran depuis son propre dossier pour trouver
     # `apps/server/src/main.ts` — c'est ainsi que le serveur résout lui-même ses
     # assets (`import.meta.dir`). Un `libexec.install` suivi d'un lien
     # symbolique casserait cette remontée : le lanceur ne résout pas les liens.
+    #
+    # `node_modules` en fait partie : ses liens de workspace sont RELATIFS, donc
+    # ils survivent à la copie tant que l'arborescence est préservée.
     prefix.install Dir["*"]
   end
 
