@@ -1,7 +1,7 @@
 class HerdrChat < Formula
   desc "Pilot Herdr and its agents from your phone"
   homepage "https://github.com/xDelph/herdr-chat"
-  url "https://github.com/xDelph/herdr-chat/releases/download/v0.1.0/herdr-chat-0.1.1.tar.gz"
+  url "https://github.com/xDelph/herdr-chat/releases/download/v0.1.1/herdr-chat-0.1.1.tar.gz"
   sha256 "e8d882774c4bd0b7f86b24afd7b5ea10d320915bdc1f617d1b9ac6971f7e0db6"
   license "PolyForm-Noncommercial-1.0.0"
 
