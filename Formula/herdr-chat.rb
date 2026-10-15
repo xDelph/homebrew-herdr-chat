@@ -1,4 +1,4 @@
-class Herdrchat < Formula
+class HerdrChat < Formula
   desc "Pilot Herdr and its agents from your phone"
   homepage "https://github.com/xDelph/herdr-chat"
   url "https://github.com/xDelph/herdr-chat/releases/download/v0.1.0/herdr-chat-0.1.0.tar.gz"
