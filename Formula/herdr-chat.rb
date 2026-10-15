@@ -19,17 +19,29 @@ class HerdrChat < Formula
     # ⚠️ On installe ICI, sur la machine de l'utilisateur, et pas dans la release :
     # les binaires natifs doivent correspondre à SON architecture. La release est
     # construite sur Linux, l'utilisateur est sur macOS.
-    system "bun", "install", "--frozen-lockfile", "--production"
-
     # ⚠️ **Tout à la racine du préfixe, jamais dans `libexec`.**
     # Le lanceur remonte d'un cran depuis son propre dossier pour trouver
     # `apps/server/src/main.ts` — c'est ainsi que le serveur résout lui-même ses
     # assets (`import.meta.dir`). Un `libexec.install` suivi d'un lien
     # symbolique casserait cette remontée : le lanceur ne résout pas les liens.
-    #
-    # `node_modules` en fait partie : ses liens de workspace sont RELATIFS, donc
-    # ils survivent à la copie tant que l'arborescence est préservée.
     prefix.install Dir["*"]
+
+    # ⚠️ **APRÈS la copie, et pas avant — c'est tout le correctif.**
+    #
+    # La version précédente installait dans le *buildpath* puis copiait. Le
+    # service démarrait alors et mourait aussitôt sur
+    # « Cannot find module '@herdr-remote/shared' » : la copie détruit la
+    # disposition que bun crée dans `node_modules/.bun`, et le paquet de
+    # workspace devient introuvable.
+    #
+    # Mesuré, pas supposé : le MÊME tarball, extrait dans un dossier vide,
+    # installé sur place et lancé, démarre correctement.
+    #
+    # ⚠️ Et ici, sur la machine de l'utilisateur : la release est construite sur
+    # Linux, il est sur macOS — les binaires natifs doivent être les siens.
+    cd prefix do
+      system "bun", "install", "--frozen-lockfile", "--production"
+    end
   end
 
   service do
