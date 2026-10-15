@@ -1,8 +1,8 @@
 class HerdrChat < Formula
   desc "Pilot Herdr and its agents from your phone"
   homepage "https://github.com/xDelph/herdr-chat"
-  url "https://github.com/xDelph/herdr-chat/releases/download/v0.1.1/herdr-chat-0.1.1.tar.gz"
-  sha256 "e8d882774c4bd0b7f86b24afd7b5ea10d320915bdc1f617d1b9ac6971f7e0db6"
+  url "https://github.com/xDelph/herdr-chat/releases/download/v0.1.2/herdr-chat-0.1.2.tar.gz"
+  sha256 "7c6a41b41a764b3fe7f7522028fd52201faa2373b13e4ad9fa4d84e6a54a98d8"
   license "PolyForm-Noncommercial-1.0.0"
 
   # Le serveur tourne en TypeScript : pas d'étape de compilation ici, les
@@ -48,13 +48,13 @@ class HerdrChat < Formula
     run [opt_bin/"herdrchat"]
     keep_alive true
     # ⚠️ **`PATH` n'est pas facultatif ici.**
-    # Sans lui, launchd démarre le service avec `/usr/bin:/bin` seulement. Le
-    # lanceur y cherche `bun`, ne le trouve pas, et sort en 1 : le service reste
-    # en « error » sans jamais écrire une ligne.
+    # Sans lui, le superviseur démarre le service avec `/usr/bin:/bin`
+    # seulement. Le lanceur y cherche `bun`, ne le trouve pas, et sort en 1 : le
+    # service reste en « error » sans jamais écrire une ligne.
     #
     # Mesuré : la MÊME commande lancée à la main fonctionne (elle hérite du PATH
-    # de ton shell, où bun est dans nvm), et échoue avec un PATH minimal.
-    # `std_service_path_env` est le PATH standard de Homebrew pour les services.
+    # du shell), et échoue avec un PATH minimal. `std_service_path_env` est le
+    # PATH standard de Homebrew pour les services, macOS comme Linux.
     environment_variables HERDR_REMOTE_BIND: "127.0.0.1", PATH: std_service_path_env
   end
 
@@ -63,17 +63,36 @@ class HerdrChat < Formula
       Herdr Chat lit les sessions de Herdr : Herdr doit tourner, et son socket
       doit exister (~/.config/herdr/herdr.sock).
 
-      Le serveur écoute en local seulement. Pour l'atteindre depuis le
-      téléphone, exposez-le avec Tailscale :
+      Le serveur n'écoute qu'en local. Pour l'atteindre depuis le téléphone,
+      exposez-le avec Tailscale — le port HTTPS par défaut suffit :
+
+        tailscale serve --bg http://127.0.0.1:8791
+
+      Puis ouvrez https://<votre-machine>.<votre-tailnet>.ts.net et ajoutez la
+      PWA à l'écran d'accueil.
+
+      Si le port 443 est déjà pris, servez sur un port explicite :
 
         tailscale serve --bg --https=8790 http://127.0.0.1:8791
 
-      Puis ouvrez https://<votre-machine>.<tailnet>.ts.net:8790 et installez la
-      PWA sur l'écran d'accueil.
+      L'adresse devient alors
+      https://<votre-machine>.<votre-tailnet>.ts.net:8790.
+
+      Dans les deux cas, Herdr Chat lit la configuration de Serve au démarrage
+      et autorise l'origine correspondante : il n'y a rien à déclarer à la main.
     EOS
   end
 
   test do
     assert_predicate bin/"herdrchat", :executable?
+
+    # ⚠️ **La PWA doit voyager avec l'archive.** Le serveur la sert depuis
+    # `apps/web/dist` ; sans elle, `herdrchat` démarre et ne sert aucune page —
+    # une panne silencieuse, et c'est exactement ce que `dist` dans
+    # `.gitignore` rend possible. On le vérifie donc à l'installation.
+    assert_predicate prefix/"apps/web/dist/index.html", :exist?
+
+    # Le paquet de workspace aussi, sans quoi le service meurt au démarrage.
+    assert_predicate prefix/"packages/shared/src/index.ts", :exist?
   end
 end
