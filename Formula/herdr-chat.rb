@@ -1,8 +1,8 @@
 class HerdrChat < Formula
   desc "Pilot Herdr and its agents from your phone"
   homepage "https://github.com/xDelph/herdr-chat"
-  url "https://github.com/xDelph/herdr-chat/releases/download/v0.1.4/herdr-chat-0.1.4.tar.gz"
-  sha256 "e733a91f4b7f8282fc57759a853512e519b5b7ce865fd39cd33c2f5022ebb60e"
+  url "https://github.com/xDelph/herdr-chat/releases/download/v0.1.7/herdr-chat-0.1.7.tar.gz"
+  sha256 "5f65e0608bbbf64cd3a92ccd86313b02c9aebbf3591808bc0d7352577e21dee5"
   license "PolyForm-Noncommercial-1.0.0"
 
   # Le serveur tourne en TypeScript : pas d'étape de compilation ici, les
