@@ -1,28 +1,28 @@
 class HerdrChat < Formula
   desc "Drive Herdr and its coding agents from your phone (single Rust binary)"
   homepage "https://github.com/xDelph/herdr-chat"
-  version "0.2.3"
+  version "0.2.4"
   license "PolyForm-Noncommercial-1.0.0"
 
   on_macos do
     on_arm do
       url "https://github.com/xDelph/herdr-chat/releases/download/v#{version}/herdr-chat-macos-arm64.tar.gz"
-      sha256 "02b03d1afa11ef7edc26b644412398ea0b031c1f1ac84faeeecdd5f486939865"
+      sha256 "15f80990c9d1c0f80368e8ddeffd410731ef904387f5d58afe9092be8466f621"
     end
     on_intel do
       url "https://github.com/xDelph/herdr-chat/releases/download/v#{version}/herdr-chat-macos-x86_64.tar.gz"
-      sha256 "3e2ff0506635591283598e2f8cc338040e1fc9e154e0001805d8c6d6e1fb5cf4"
+      sha256 "e3f9fa304537d79a1bfde98955c286887fc7f7b3b38798204d907e6064e9aba4"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/xDelph/herdr-chat/releases/download/v#{version}/herdr-chat-linux-aarch64.tar.gz"
-      sha256 "bb93b887a1dc91e70912234d19b00de921ddb388197db0467dbd480e4b4b1d23"
+      sha256 "c7d8785c2ad5cb6a12cdf30c490927f7741c1775b6b6b0f5832ca0e5c686f383"
     end
     on_intel do
       url "https://github.com/xDelph/herdr-chat/releases/download/v#{version}/herdr-chat-linux-x86_64.tar.gz"
-      sha256 "fda9aa87337e47476eeec8706ac203c4062b86fe8944192b05e448c9889dcd79"
+      sha256 "4189ebfbd45cffd4a8c726de6c859484dade53cfd302b232218c85a0ef8493fc"
     end
   end
 
