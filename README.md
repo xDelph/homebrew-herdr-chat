@@ -32,6 +32,25 @@ installation — the server listens on `127.0.0.1` only, by design.
 
 Source: <https://github.com/xDelph/herdr-chat> · PolyForm Noncommercial 1.0.0
 
+### herdr-core-chat
+
+Drive Herdr.app (herdr-core) and its coding agents from your phone. The
+successor of `herdr-chat`, built on herdr-core's own protocol; both can be
+installed and run side by side.
+
+```bash
+brew trust xDelph/herdr-chat
+brew install xDelph/herdr-chat/herdr-core-chat
+brew services start herdr-core-chat
+```
+
+Runs alongside Herdr Chat without sharing anything: port `8792` (Herdr Chat:
+`8791`), data in `~/.herdr-core-chat/`, service `sh.brew.herdr-core-chat`. Needs
+**Herdr.app** (herdr-core) on the same machine; the formula's `caveats` print the
+`tailscale serve` command to reach it from a phone.
+
+Source: <https://github.com/xDelph/herdr-core-chat> · PolyForm Noncommercial 1.0.0
+
 ## Other taps
 
 `devcli` still lives in its own tap, unchanged:
