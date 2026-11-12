@@ -20,23 +20,23 @@ class HerdrCoreChat < Formula
   # refuse un `version` redondant. `formule-release.sh` réécrit les quatre.
   on_macos do
     on_arm do
-      url "https://github.com/xDelph/herdr-core-chat/releases/download/v0.1.2/herdr-core-chat-macos-arm64.tar.gz"
-      sha256 "41af121886aaa1c2731c7e9bf78bcad28e7a0f03ec8a17db111b3126780c526c"
+      url "https://github.com/xDelph/herdr-core-chat/releases/download/v0.1.3/herdr-core-chat-macos-arm64.tar.gz"
+      sha256 "5cdf633e921aa6fe6a2e557333e1637d4e0058d5b04d214a13efcf2e4b800180"
     end
     on_intel do
-      url "https://github.com/xDelph/herdr-core-chat/releases/download/v0.1.2/herdr-core-chat-macos-x86_64.tar.gz"
-      sha256 "eeb7be09e60b81beba1c9857f2ff5518855f6b4594c840f13467b430c3869225"
+      url "https://github.com/xDelph/herdr-core-chat/releases/download/v0.1.3/herdr-core-chat-macos-x86_64.tar.gz"
+      sha256 "94d46070c943f54decd98b6aabf4b080d20ecc0607ed0e95ad18b1b4e2acf0ec"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/xDelph/herdr-core-chat/releases/download/v0.1.2/herdr-core-chat-linux-aarch64.tar.gz"
-      sha256 "88d9d31a4fbdd5c45298c3e3ffb3986e6f833fa455a222bcd70c66acaadd12bf"
+      url "https://github.com/xDelph/herdr-core-chat/releases/download/v0.1.3/herdr-core-chat-linux-aarch64.tar.gz"
+      sha256 "05aea19f3975d2a1d249764593c588d8b6c85bfddc79bb6af38020d17305f27c"
     end
     on_intel do
-      url "https://github.com/xDelph/herdr-core-chat/releases/download/v0.1.2/herdr-core-chat-linux-x86_64.tar.gz"
-      sha256 "27d0953b747a940c7c63f7cf2af2bd98fdfcd2f3682c77ac723a5114a9d6bc53"
+      url "https://github.com/xDelph/herdr-core-chat/releases/download/v0.1.3/herdr-core-chat-linux-x86_64.tar.gz"
+      sha256 "cfa0149971658873b8db566a3794e584815d45ba539e89cfec986fc162187317"
     end
   end
 
